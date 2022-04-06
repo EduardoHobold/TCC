@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		flex: 1,
-		margin: 3,
+		margin: 5,
 		height: Dimensions.get('window').width / numColumns,
 		borderRadius: 5
 	},

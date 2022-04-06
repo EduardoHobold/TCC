@@ -41,12 +41,14 @@ export default function App() {
 				<Text style={styles.itemText}>{data[randon].key}</Text>
 			</View>
 
-			<FlatList
-				data={data}
-				renderItem={renderItem}
-				keyExtractor={(item) => item.id}
-				numColumns={3}
-			/>
+			<View style={{margin: 8}}> 
+				<FlatList
+					data={data}
+					renderItem={renderItem}
+					keyExtractor={(item) => item.id}
+					numColumns={3}
+				/>
+			</View>
 
 		</LinearGradient>
 	);
