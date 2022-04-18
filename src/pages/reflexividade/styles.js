@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 	},
 	itemText: {
 		color: '#fff',
-		fontSize: 32,
+		fontSize: 20,
 		fontWeight: 'bold'
 	},
 });

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, Button } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles'
 
@@ -14,12 +14,53 @@ export default function App() {
 	const [count, setCount] = useState(0);
 	const [press, setPress] = useState(null);
 
+	const [countSeconds, setCountSeconds] = useState(0);
+	const [customInterval, setCustomInterval] = useState();
+	const [result, setResult] = useState([])
+
 	useEffect(() => {
+		validaResposta();
+	}, [press]);
+
+	// Validação da resposta selecionada e monta array do obejto do resultado
+	function validaResposta() {
+		let resposta = false
+		let resultado
+		setCountSeconds((value) => value = 0);
 		if (press != null && data[randon].id === press.id) {
 			setCount(count + 1);
 			setRandon(Math.floor(Math.random() * data.length - 1) + 1);
+			resposta = true
 		}
-	}, [press]);
+		resultado = { id: result.length, acerto: resposta, tempo: countSeconds }
+		if(resultado){
+			result.push(resultado)
+		}
+		console.log(resposta, countSeconds)
+		console.log(result)
+	}
+
+	// Funções para controle do contador de tempo
+	const startTimer = () => {
+		setCustomInterval(
+			setInterval(() => {
+				changeTime();
+			}, 1000)
+		)
+	}
+
+	const changeTime = () => {
+		setCountSeconds((value) => value + 1)
+	}
+
+	const stopTimer = () => {
+		if(customInterval) {
+			clearInterval(customInterval)
+		}
+	}
+
+
+	
 
 	const renderItem = ({ item }) => {
 		return (
@@ -35,6 +76,11 @@ export default function App() {
 			<View style={{ alignItems: 'center', marginBottom: 20 }}>
 				<Text style={styles.itemText}>Comparação Matemática</Text>
 				<Text style={styles.itemText}>Acertos: {count.toString()}</Text>
+				<Text style={styles.itemText}>{countSeconds < 10 ? "0" + countSeconds : countSeconds}</Text>
+				<View style={{width: '50%', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
+					<Button title='Start' onPress={startTimer} />
+					<Button title='Stop' onPress={stopTimer} />
+				</View>	
 			</View>
 
 			<View style={[styles.button]}>
