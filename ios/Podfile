@@ -14,6 +14,8 @@ target 'TCC' do
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'TCCTests' do
     inherit! :complete
     # Pods for testing
