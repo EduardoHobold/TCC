@@ -32,27 +32,26 @@ export default function App() {
 	const [itens, setItens] = useState([])
 
 	useEffect(() => {
-		async function fetch() {
-			geraItens();
-			setLoading(false);
-		}
-		fetch();
-		setLoading(false)
+		setLoading(true)
+		geraItens();
+		setLoading(false);
 		validaResposta();
 	}, [press]);
 
 	function geraItens() {
-		console.log('geraItens')
+		setItens([]);
 		let c = 0
+		let itensList = []
+		let comparacao
 		for (var i = 0; i < data.length; i++) {
 			c = Math.floor(Math.random() * data.length - 1) + 1
-			if (c !== data.id && itens.length < 9) {
-				itens.push(data[c]);
+			comparacao = itensList.find(element => element == data[c])
+			if (!comparacao && itensList.length < 9) {
+				itensList.push(data[c]);
 			}
 		}
+		setItens(itensList)
 		setRandon(Math.floor(Math.random() * 9 - 1) + 1);
-		console.log(itens)
-		console.log(randon)
 	}
 
 	// Validação da resposta selecionada e monta array do obejto do resultado
@@ -66,10 +65,10 @@ export default function App() {
 			resposta = true
 		}
 		resultado = { id: result.length, acerto: resposta, tempo: countSeconds }
+
 		if (resultado) {
 			result.push(resultado)
 		}
-		// console.log(resposta, countSeconds)
 		console.log(result)
 	}
 
@@ -91,7 +90,7 @@ export default function App() {
 	const renderItem = ({ item }) => {
 		return (
 			<TouchableOpacity onPress={() => setPress(item)} style={styles.item}>
-				{item.origem == 'FontAwesome5' ? <IconFont name={item.icon} size={40} color="#fff" /> : <IconMaterial name={item.icon} size={40} color="#fff" />}
+				{item.origem == 'FontAwesome5' ? <IconFont name={item.icon} size={46} color="#fff" /> : <IconMaterial name={item.icon} size={40} color="#fff" />}
 			</TouchableOpacity>
 		);
 
@@ -111,8 +110,7 @@ export default function App() {
 				</View>
 
 				<View style={[styles.button]}>
-					{itens[randon].origem == 'FontAwesome5' ? <IconFont name={itens[randon].icon} size={40} color="#fff" /> : <IconMaterial name={itens[randon].icon} size={40} color="#fff" />}
-					{/* <IconFont name={itens[randon].icon} size={40} color="#fff" /> */}
+					{itens[randon].origem == 'FontAwesome5' ? <IconFont name={itens[randon].icon} size={46} color="#fff" /> : <IconMaterial name={itens[randon].icon} size={46} color="#fff" />}
 				</View>
 
 				<View style={{ margin: 8 }}>
@@ -121,6 +119,7 @@ export default function App() {
 						renderItem={renderItem}
 						keyExtractor={(item) => item.id}
 						numColumns={3}
+						refreshing={true}
 					/>
 				</View>
 			</LinearGradient>
