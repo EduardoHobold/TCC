@@ -1,20 +1,20 @@
-export default class RespostasSchema {
-    static schema = {
-        name: 'Respostas',
-        primaryKey: 'id',
-        properties: {
-            id: { type: 'int', indexed: true },
-            nome: 'string',
-            resultado: {type: 'list', objectType: 'Resultado'},
-        },
-    };
+const RespostasSchema = {
+    name: 'Respostas',
+    primaryKey: 'id',
+    properties: {
+        id: { type: 'int', indexed: true },
+        nome: 'string',
+        resultado: { type: 'list', objectType: 'resultado'},
+    },
 }
 
-const Resultado = {
-    name: 'Resultado',
+const resultadoSchema = {
+    name: 'resultado',
     properties: {
         id: 'int',
         acerto: 'bool',
         tempo: 'int',
     }
 }
+
+export const MySchemas = [RespostasSchema, resultadoSchema];

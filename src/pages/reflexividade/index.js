@@ -119,7 +119,7 @@ export default function App() {
 	async function salvarRespostas() {
 		const data = {
 			id: 0,
-			name: 'Eduardo',
+			nome: 'Eduardo',
 			resultado: result,
 		};
 
@@ -128,7 +128,7 @@ export default function App() {
 		const realm = await getRealm();
 
 		realm.write(() => {
-			realm.create('Respostas', data, 'modified');
+			realm.create('Respostas', data);
 		});
 
 		return data;
