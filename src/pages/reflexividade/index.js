@@ -5,6 +5,8 @@ import styles from './styles'
 import IconFont from 'react-native-vector-icons/FontAwesome5'
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons'
 
+import getRealm from '../../services/realm';
+
 
 export default function App() {
 
@@ -24,6 +26,7 @@ export default function App() {
 	const [randon, setRandon] = useState(Math.floor(Math.random() * 9 - 1) + 1);
 	const [count, setCount] = useState(0);
 	const [press, setPress] = useState(null);
+	const [controle, setControle] = useState(0);
 
 	const [countSeconds, setCountSeconds] = useState(0);
 	const [customInterval, setCustomInterval] = useState();
@@ -31,11 +34,30 @@ export default function App() {
 	const [loading, setLoading] = useState(true)
 	const [itens, setItens] = useState([])
 
+	const [resultados, setResultados] = useState([]);
+
+	// useEffect(() => {
+	// 	async function loadResultados() {
+	// 	  const realm = await getRealm();
+	
+	// 	  console.log(realm.path);
+	
+	// 	  const data = realm.objects('Respostas');
+	
+	// 	  setResultados(data);
+	// 	}
+	
+	// 	loadResultados();
+	// 	console.log(resultados);
+	//   }, []);
+
 	useEffect(() => {
-		setLoading(true)
-		geraItens();
-		setLoading(false);
-		validaResposta();
+		if (controle < 10) {
+			setLoading(true)
+			geraItens();
+			setLoading(false);
+			validaResposta();
+		}
 	}, [press]);
 
 	function geraItens() {
@@ -56,20 +78,27 @@ export default function App() {
 
 	// Validação da resposta selecionada e monta array do obejto do resultado
 	function validaResposta() {
-		let resposta = false
-		let resultado
+		let resposta = false;
+		let resultado;
 		setCountSeconds((value) => value = 0);
 		if (press != null && itens[randon].id === press.id) {
 			setCount(count + 1);
 			setRandon(Math.floor(Math.random() * 9 - 1) + 1);
-			resposta = true
+			resposta = true;
 		}
 		resultado = { id: result.length, acerto: resposta, tempo: countSeconds }
 
-		if (resultado) {
-			result.push(resultado)
+		if (resultado && resultado.tempo != 0) {
+			result.push(resultado);
+			setControle(controle + 1);
 		}
-		console.log(result)
+		if (controle == 9) {
+			salvarRespostas();
+			stopTimer();
+			setCount(0);
+		}
+		console.log(result);
+		console.log(controle);
 	}
 
 	// Funções para controle do contador de tempo
@@ -83,8 +112,26 @@ export default function App() {
 
 	const stopTimer = () => {
 		if (customInterval) {
-			clearInterval(customInterval)
+			clearInterval(customInterval);
 		}
+	}
+
+	async function salvarRespostas() {
+		const data = {
+			id: 0,
+			name: 'Eduardo',
+			resultado: result,
+		};
+
+		console.log('data', data);
+
+		const realm = await getRealm();
+
+		realm.write(() => {
+			realm.create('Respostas', data, 'modified');
+		});
+
+		return data;
 	}
 
 	const renderItem = ({ item }) => {
