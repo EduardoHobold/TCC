@@ -1,4 +1,4 @@
-const RespostasSchema = {
+export const RespostasSchema = {
     name: 'Respostas',
     primaryKey: 'id',
     properties: {
@@ -8,7 +8,7 @@ const RespostasSchema = {
     },
 }
 
-const resultadoSchema = {
+export const resultadoSchema = {
     name: 'resultado',
     properties: {
         id: 'int',
@@ -17,4 +17,4 @@ const resultadoSchema = {
     }
 }
 
-export const MySchemas = [RespostasSchema, resultadoSchema];
+

@@ -33,23 +33,21 @@ export default function App() {
 	const [result, setResult] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [itens, setItens] = useState([])
+	const [idResultado, setIdResultado] = useState(0);
 
 	const [resultados, setResultados] = useState([]);
 
-	// useEffect(() => {
-	// 	async function loadResultados() {
-	// 	  const realm = await getRealm();
+	useEffect(() => {
+		async function loadResultados() {
+		  const realm = await getRealm();
+
+		  const data = realm.objects('Respostas');
+		  setIdResultado(realm.objects('Respostas').length + 1);	
+		  setResultados(data);
+		}
 	
-	// 	  console.log(realm.path);
-	
-	// 	  const data = realm.objects('Respostas');
-	
-	// 	  setResultados(data);
-	// 	}
-	
-	// 	loadResultados();
-	// 	console.log(resultados);
-	//   }, []);
+		loadResultados();
+	  }, [press]);
 
 	useEffect(() => {
 		if (controle < 10) {
@@ -78,6 +76,7 @@ export default function App() {
 
 	// Validação da resposta selecionada e monta array do obejto do resultado
 	function validaResposta() {
+		console.log('Resultado', resultados)
 		let resposta = false;
 		let resultado;
 		setCountSeconds((value) => value = 0);
@@ -118,7 +117,7 @@ export default function App() {
 
 	async function salvarRespostas() {
 		const data = {
-			id: 0,
+			id: idResultado,
 			nome: 'Eduardo',
 			resultado: result,
 		};
@@ -130,8 +129,6 @@ export default function App() {
 		realm.write(() => {
 			realm.create('Respostas', data);
 		});
-
-		return data;
 	}
 
 	const renderItem = ({ item }) => {
