@@ -39,15 +39,18 @@ export default function App() {
 
 	useEffect(() => {
 		async function loadResultados() {
-		  const realm = await getRealm();
+			const realm = await getRealm();
 
-		  const data = realm.objects('Respostas');
-		  setIdResultado(realm.objects('Respostas').length + 1);	
-		  setResultados(data);
+			const data = realm.objects('Respostas');
+
+			console.log('Result', data)
+			setIdResultado(realm.objects('Respostas').length + 1);
+			setResultados(arrumaObjectoDinamicos(data));
 		}
-	
 		loadResultados();
-	  }, [press]);
+		console.log('Resultados', resultados)
+	}, [press]);
+
 
 	useEffect(() => {
 		if (controle < 10) {
@@ -57,6 +60,56 @@ export default function App() {
 			validaResposta();
 		}
 	}, [press]);
+
+	// function arrumaObjectoDinamicos(data) {
+	// 	let newResult = [];
+	// 	let newObject = {};
+	// 	data.map(e => {
+	// 		// lista de id, nome e resultado
+	// 		Object.keys(e).forEach(property => {
+	// 			// resultado = []
+	// 			if (typeof e[property] === 'object' && e[property].length !== undefined) {
+	// 				// Se tipo do meu dado for um objeto e a propriedade dele for um array percorro ele.
+	// 				let insideResult = [];
+	// 				let insideObject = {};
+	// 				e[property].map((element, index) => {
+	// 					insideObject = {};
+	// 					// Percorrendo o array de dentro do dado.
+	// 					Object.keys(element).forEach(subProperty => {
+	// 						insideObject[subProperty] = element[subProperty];
+	// 					})
+	// 					insideResult.push(insideObject)
+	// 				})
+	// 				newObject[property] = insideResult;
+	// 			} else {
+	// 				newObject[property] = e[property]
+	// 			}
+	// 		})
+	// 		newResult.push(newObject);
+	// 	})
+	// 	return newResult;
+	// }
+
+	function arrumaObjectoDinamicos(data) {
+		let newResult = [];
+		let newObject = {};
+		data.map(e => {
+			newObject = {};
+			// lista de id, nome e resultado
+			Object.keys(e).forEach(property => {
+				// id, nome e resultado = []
+				if (typeof e[property] === 'object' && e[property].length !== undefined) {
+					// se a propriedade for um array percorro ele
+					newObject[property] = arrumaObjectoDinamicos(e[property]);
+				} else {
+					newObject[property] = e[property]
+				}
+			})
+			newResult.push(newObject);
+		})
+		console.log(newResult);
+		return newResult;
+	}
 
 	function geraItens() {
 		setItens([]);
@@ -76,7 +129,6 @@ export default function App() {
 
 	// Validação da resposta selecionada e monta array do obejto do resultado
 	function validaResposta() {
-		console.log('Resultado', resultados)
 		let resposta = false;
 		let resultado;
 		setCountSeconds((value) => value = 0);
