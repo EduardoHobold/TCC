@@ -6,6 +6,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import Reflexividade from '../pages/reflexividade/index'
 import Simetria from '../pages/simetria/index'
 import Transitividade from '../pages/transitividade/index'
+import ListaResultados from '../pages/listaResultados/index'
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -40,6 +41,7 @@ function DrawerNavigator() {
 			<Drawer.Screen name="Reflexividade" component={ReflexividadeStack} />
 			<Drawer.Screen name="Simetria" component={SimetriaStack} />
 			<Drawer.Screen name="Transitividade" component={TransitividadeStack} />
+			<Drawer.Screen name="ListaResultados" component={ListaResultados} />
 		</Drawer.Navigator>
 	);
 }

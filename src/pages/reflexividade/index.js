@@ -48,8 +48,9 @@ export default function App() {
 			setResultados(arrumaObjectoDinamicos(data));
 		}
 		loadResultados();
-		console.log('Resultados', resultados)
-	}, [press]);
+	}, []);
+
+
 
 
 	useEffect(() => {
@@ -59,6 +60,7 @@ export default function App() {
 			setLoading(false);
 			validaResposta();
 		}
+		console.log('Resultados', resultados);
 	}, [press]);
 
 	// function arrumaObjectoDinamicos(data) {
@@ -107,7 +109,6 @@ export default function App() {
 			})
 			newResult.push(newObject);
 		})
-		console.log(newResult);
 		return newResult;
 	}
 
