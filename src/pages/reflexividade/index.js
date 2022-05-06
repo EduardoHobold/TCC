@@ -128,6 +128,7 @@ export default function App() {
 		return (
 			<TouchableOpacity onPress={() => setPress(item)} style={styles.item}>
 				{item.origem == 'FontAwesome5' ? <IconFont name={item.icon} size={46} color="#fff" /> : <IconMaterial name={item.icon} size={40} color="#fff" />}
+				{item.origem == 'FontAwesome5' ? <IconFont name={item.icon} size={46} color="#fff" /> : <IconMaterial name={item.icon} size={40} color="#fff" />}
 			</TouchableOpacity>
 		);
 
