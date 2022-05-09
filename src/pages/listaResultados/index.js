@@ -19,7 +19,7 @@ export default function ListaResultados() {
 		setLoading(true);
 		const realm = await getRealm();
 		const data = realm.objects('Respostas');
-		setResultados(arrumaObjectoDinamicos(data));
+		setResultados(data);
 		setLoading(false);
 		console.log(resultados)
 	}
@@ -41,37 +41,9 @@ export default function ListaResultados() {
 			})
 			newResult.push(newObject);
 		})
+		console.log('New Result', newResult)
 		return newResult;
 	}
-
-	// function arrumaObjectoDinamicos(data) {
-	// 	let newResult = [];
-	// 	let newObject = {};
-	// 	data.map(e => {
-	// 		// lista de id, nome e resultado
-	// 		Object.keys(e).forEach(property => {
-	// 			// resultado = []
-	// 			if (typeof e[property] === 'object' && e[property].length !== undefined) {
-	// 				// Se tipo do meu dado for um objeto e a propriedade dele for um array percorro ele.
-	// 				let insideResult = [];
-	// 				let insideObject = {};
-	// 				e[property].map((element, index) => {
-	// 					insideObject = {};
-	// 					// Percorrendo o array de dentro do dado.
-	// 					Object.keys(element).forEach(subProperty => {
-	// 						insideObject[subProperty] = element[subProperty];
-	// 					})
-	// 					insideResult.push(insideObject)
-	// 				})
-	// 				newObject[property] = insideResult;
-	// 			} else {
-	// 				newObject[property] = e[property]
-	// 			}
-	// 		})
-	// 		newResult.push(newObject);
-	// 	})
-	// 	return newResult;
-	// }
 
 	const buscaDados = () => {
 		loadResultados();
@@ -86,10 +58,10 @@ export default function ListaResultados() {
 		let erros = 0;
 		let tempo = 0;
 		console.log(resultados)
-		resultados.map(element => {
+		resultados.forEach(element => {
 			newObject = {};
 			acertos = 0; erros = 0; tempo = 0;
-			element.resultado.map(e => {
+			element.resultado.forEach(e => {
 				if (e.acerto == false) {
 					erros = erros + 1;
 				} else {
@@ -97,7 +69,7 @@ export default function ListaResultados() {
 				}
 				tempo = tempo + e.tempo;
 			})
-			newObject = { id: element.id, nome: element.nome, acertos: acertos, erros: erros, tempo: tempo / 10 }
+			newObject = { id: element.id, nome: element.nome, tipo: element.tipo, acertos: acertos, erros: erros, tempo: tempo / 10 }
 			newResult.push(newObject);
 		})
 		setDados(newResult);
@@ -127,6 +99,7 @@ export default function ListaResultados() {
 									<View style={styles.item}>
 										<Text style={styles.itemText}>Id: {item.id}</Text>
 										<Text style={styles.itemText}>Nome: {item.nome}</Text>
+										<Text style={styles.itemText}>Tipo: {item.tipo}</Text>
 										<Text style={styles.itemText}>Erros: {item.erros}</Text>
 										<Text style={styles.itemText}>Acertos: {item.acertos}</Text>
 										<Text style={styles.itemText}>Tempo Médio: {item.tempo}</Text>

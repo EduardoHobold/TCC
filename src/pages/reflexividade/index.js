@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Text, View, FlatList, TouchableOpacity, Button } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, Button, TextInput, Keyboard } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles'
 import IconFont from 'react-native-vector-icons/FontAwesome5'
@@ -34,6 +34,7 @@ export default function App() {
 	const [loading, setLoading] = useState(true)
 	const [itens, setItens] = useState([])
 	const [idResultado, setIdResultado] = useState(0);
+	const [nome, setNome] = useState();
 
 	useEffect(() => {
 		loadResultados();
@@ -88,6 +89,7 @@ export default function App() {
 			salvarRespostas();
 			stopTimer();
 			setCount(0);
+			setNome('');
 		}
 		console.log(result);
 		console.log(controle);
@@ -111,10 +113,10 @@ export default function App() {
 	async function salvarRespostas() {
 		const data = {
 			id: idResultado,
-			nome: 'Teste2',
+			nome: nome,
+			tipo: 'Reflexividade',
 			resultado: result,
 		};
-
 		console.log('data', data);
 
 		const realm = await getRealm();
@@ -128,7 +130,6 @@ export default function App() {
 		return (
 			<TouchableOpacity onPress={() => setPress(item)} style={styles.item}>
 				{item.origem == 'FontAwesome5' ? <IconFont name={item.icon} size={46} color="#fff" /> : <IconMaterial name={item.icon} size={40} color="#fff" />}
-				{item.origem == 'FontAwesome5' ? <IconFont name={item.icon} size={46} color="#fff" /> : <IconMaterial name={item.icon} size={40} color="#fff" />}
 			</TouchableOpacity>
 		);
 
@@ -136,30 +137,30 @@ export default function App() {
 
 	if (!loading) {
 		return (
-			<LinearGradient colors={['rgba(25,38,68,1)', 'rgba(54,84,168,1)']} style={styles.container} >
-				<View style={{ alignItems: 'center', marginBottom: 20 }}>
-					<Text style={styles.itemText}>Comparação Matemática</Text>
-					<Text style={styles.itemText}>Acertos: {count.toString()}</Text>
-					<Text style={styles.itemText}>{countSeconds < 10 ? "0" + countSeconds : countSeconds}</Text>
-					<View style={{ width: '50%', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
-						<Button title='Start' onPress={startTimer} />
-						<Button title='Stop' onPress={stopTimer} />
+			<LinearGradient keyboardShouldPersistTaps={false} colors={['rgba(25,38,68,1)', 'rgba(54,84,168,1)']} style={styles.container} >
+					<View style={{ alignItems: 'center', marginBottom: 20 }}>
+						<Text style={styles.itemText}>Reflexividade</Text>
+						<TextInput style={{ color: '#FFF', borderBottomWidth: 1, textAlign: 'center' }} placeholder={'Informe seu nome'} placeholderTextColor="#FFF" onChangeText={(value) => setNome(value)} />
+						<Text style={styles.itemText}>{countSeconds < 10 ? "0" + countSeconds : countSeconds}</Text>
+						<View style={{ width: '50%', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+							<Button title='Start' onPress={startTimer} />
+							<Button title='Stop' onPress={stopTimer} />
+						</View>
 					</View>
-				</View>
 
-				<View style={[styles.button]}>
-					{itens[randon].origem == 'FontAwesome5' ? <IconFont name={itens[randon].icon} size={46} color="#fff" /> : <IconMaterial name={itens[randon].icon} size={46} color="#fff" />}
-				</View>
+					<View style={[styles.button]}>
+						{itens[randon].origem == 'FontAwesome5' ? <IconFont name={itens[randon].icon} size={46} color="#fff" /> : <IconMaterial name={itens[randon].icon} size={46} color="#fff" />}
+					</View>
 
-				<View style={{ margin: 8 }}>
-					<FlatList
-						data={itens}
-						renderItem={renderItem}
-						keyExtractor={(item) => item.id}
-						numColumns={3}
-						refreshing={true}
-					/>
-				</View>
+					<View style={{ margin: 8 }}>
+						<FlatList
+							data={itens}
+							renderItem={renderItem}
+							keyExtractor={(item) => item.id}
+							numColumns={3}
+							refreshing={true}
+						/>
+					</View>
 			</LinearGradient>
 		);
 

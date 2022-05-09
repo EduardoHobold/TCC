@@ -4,6 +4,7 @@ export const RespostasSchema = {
     properties: {
         id: { type: 'int', indexed: true },
         nome: 'string',
+        tipo: 'string',
         resultado: { type: 'list', objectType: 'resultado'},
     },
 }
