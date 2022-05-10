@@ -8,7 +8,7 @@ import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons'
 import getRealm from '../../services/realm';
 
 
-export default function App() {
+export default function Reflexividade() {
 
 	const data = [
 		{ id: 1, icon: 'dog', origem: 'FontAwesome5' }, { id: 2, icon: 'cat', origem: 'FontAwesome5' },
@@ -24,7 +24,6 @@ export default function App() {
 	];
 
 	const [randon, setRandon] = useState(Math.floor(Math.random() * 9 - 1) + 1);
-	const [count, setCount] = useState(0);
 	const [press, setPress] = useState(null);
 	const [controle, setControle] = useState(0);
 
@@ -75,7 +74,6 @@ export default function App() {
 		let resultado;
 		setCountSeconds((value) => value = 0);
 		if (press != null && itens[randon].id === press.id) {
-			setCount(count + 1);
 			setRandon(Math.floor(Math.random() * 9 - 1) + 1);
 			resposta = true;
 		}
@@ -88,7 +86,6 @@ export default function App() {
 		if (controle == 9) {
 			salvarRespostas();
 			stopTimer();
-			setCount(0);
 			setNome('');
 		}
 		console.log(result);

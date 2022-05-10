@@ -24,7 +24,6 @@ export default function Simetria() {
   ];
 
   const [randon, setRandon] = useState(Math.floor(Math.random() * 9 - 1) + 1);
-  const [count, setCount] = useState(0);
   const [press, setPress] = useState(null);
   const [controle, setControle] = useState(0);
 
@@ -75,7 +74,6 @@ export default function Simetria() {
     let resultado;
     setCountSeconds((value) => value = 0);
     if (press != null && itens[randon].id === press.id) {
-      setCount(count + 1);
       setRandon(Math.floor(Math.random() * 9 - 1) + 1);
       resposta = true;
     }
@@ -88,7 +86,6 @@ export default function Simetria() {
     if (controle == 9) {
       salvarRespostas();
       stopTimer();
-      setCount(0);
       setNome('');
     }
     console.log(result);
