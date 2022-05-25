@@ -17,8 +17,8 @@ export default function Transitividade() {
 		{ id: 9, icon: 'numeric-9', origem: 'MaterialCommunityIcons' }
 	];
 
-  const [number1, setNumber1] = useState(Math.floor(Math.random() * (5 - 1) + 1));
-  const [number2, setNumber2] = useState(Math.floor(Math.random() * (4 - 1) + 1));
+	const [number1, setNumber1] = useState(Math.floor(Math.random() * (5 - 1) + 1));
+	const [number2, setNumber2] = useState(Math.floor(Math.random() * (4 - 1) + 1));
 	const [press, setPress] = useState(null);
 	const [controle, setControle] = useState(0);
 
@@ -50,13 +50,13 @@ export default function Transitividade() {
 		let resposta = false;
 		let resultado;
 		setCountSeconds((value) => value = 0);
-    console.log('number 1', number1)
-    console.log('number 2', number2)
-		if (press != null && (number1+1) + (number2+1) === press.id) {
+		console.log('number 1', number1)
+		console.log('number 2', number2)
+		if (press != null && (number1 + 1) + (number2 + 1) === press.id) {
 			resposta = true;
 		}
-    setNumber1(Math.floor(Math.random() * (5 - 1) +1 ));
-    setNumber2(Math.floor(Math.random() * (4 - 1) +1 ));
+		setNumber1(Math.floor(Math.random() * (5 - 1) + 1));
+		setNumber2(Math.floor(Math.random() * (4 - 1) + 1));
 		resultado = { id: result.length, acerto: resposta, tempo: countSeconds }
 
 		if (resultado && resultado.tempo != 0) {
@@ -106,7 +106,7 @@ export default function Transitividade() {
 	const renderItem = ({ item }) => {
 		return (
 			<TouchableOpacity onPress={() => setPress(item)} style={styles.item}>
-      <IconMaterial name={item.icon} size={72} color="#fff" />
+				<IconMaterial name={item.icon} size={72} color="#fff" />
 			</TouchableOpacity>
 		);
 
@@ -115,31 +115,31 @@ export default function Transitividade() {
 	if (!loading) {
 		return (
 			<LinearGradient keyboardShouldPersistTaps={false} colors={['rgba(25,38,68,1)', 'rgba(54,84,168,1)']} style={styles.container} >
-					<View style={{ alignItems: 'center', marginBottom: 20 }}>
-						<Text style={styles.itemText}>Transitividade</Text>
-						<TextInput style={{ color: '#FFF', borderBottomWidth: 1, textAlign: 'center' }} placeholder={'Informe seu nome'} placeholderTextColor="#FFF" onChangeText={(value) => setNome(value)} />
-						<Text style={styles.itemText}>{countSeconds < 10 ? "0" + countSeconds : countSeconds}</Text>
-						<View style={{ width: '50%', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
-							<Button title='Start' onPress={startTimer} />
-							<Button title='Stop' onPress={stopTimer} />
-						</View>
+				<View style={{ flexDirection: 'row', width: '100%' }}>
+					<TextInput style={{ color: '#FFF', borderColor: '#FFF', borderWidth: 1, borderRadius: 5, textAlign: 'center', width: '45%' }} placeholder={'Informe seu nome'} placeholderTextColor="#FFF" onChangeText={(value) => setNome(value)} />
+					<Text style={[styles.itemText, { marginTop: 5, marginLeft: 15, width: '10%', fontSize: 24 }]}>{countSeconds < 10 ? "0" + countSeconds : countSeconds}</Text>
+					<View style={{ width: '40%', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+						<Button title='Start' onPress={startTimer} />
+						<Button title='Stop' onPress={stopTimer} />
 					</View>
+				</View>
 
-					<View style={[styles.button, {flexDirection: 'row'}]}>
-						<IconMaterial name={data[number1].icon} size={72} color="#fff" />
-            <Text style={{fontSize: 32, color: 'black'}}> + </Text>
-            <IconMaterial name={data[number2].icon} size={72} color="#fff" />
-					</View>
 
-					<View style={{ margin: 8 }}>
-						<FlatList
-							data={data}
-							renderItem={renderItem}
-							keyExtractor={(item) => item.id}
-							numColumns={3}
-							refreshing={true}
-						/>
-					</View>
+				<View style={[styles.button, { flexDirection: 'row' }]}>
+					<IconMaterial name={data[number1].icon} size={72} color="#fff" />
+					<Text style={{ fontSize: 32, color: 'black' }}> + </Text>
+					<IconMaterial name={data[number2].icon} size={72} color="#fff" />
+				</View>
+
+				<View style={{ margin: 8 }}>
+					<FlatList
+						data={data}
+						renderItem={renderItem}
+						keyExtractor={(item) => item.id}
+						numColumns={3}
+						refreshing={true}
+					/>
+				</View>
 			</LinearGradient>
 		);
 

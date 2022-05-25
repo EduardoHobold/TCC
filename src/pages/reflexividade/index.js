@@ -10,17 +10,25 @@ import getRealm from '../../services/realm';
 
 export default function Reflexividade() {
 
-	const data = [
-		{ id: 1, icon: 'dog', origem: 'FontAwesome5' }, { id: 2, icon: 'cat', origem: 'FontAwesome5' },
-		{ id: 3, icon: 'hippo', origem: 'FontAwesome5' }, { id: 4, icon: 'crow', origem: 'FontAwesome5' },
-		{ id: 5, icon: 'frog', origem: 'FontAwesome5' }, { id: 6, icon: 'fish', origem: 'FontAwesome5' },
-		{ id: 7, icon: 'horse', origem: 'FontAwesome5' }, { id: 8, icon: 'spider', origem: 'FontAwesome5' },
-		{ id: 9, icon: 'dragon', origem: 'FontAwesome5' }, { id: 10, icon: 'bat', origem: 'MaterialCommunityIcons' },
-		{ id: 11, icon: 'rabbit', origem: 'MaterialCommunityIcons' }, { id: 12, icon: 'pig-variant', origem: 'MaterialCommunityIcons' },
-		{ id: 13, icon: 'bird', origem: 'MaterialCommunityIcons' }, { id: 14, icon: 'dolphin', origem: 'MaterialCommunityIcons' },
-		{ id: 15, icon: 'bee', origem: 'MaterialCommunityIcons' }, { id: 16, icon: 'bee-flower', origem: 'MaterialCommunityIcons' },
-		{ id: 17, icon: 'snake', origem: 'MaterialCommunityIcons' }, { id: 18, icon: 'duck', origem: 'MaterialCommunityIcons' },
+	// const data = [
+	// 	{ id: 1, icon: 'dog', origem: 'FontAwesome5' }, { id: 2, icon: 'cat', origem: 'FontAwesome5' },
+	// 	{ id: 3, icon: 'hippo', origem: 'FontAwesome5' }, { id: 4, icon: 'crow', origem: 'FontAwesome5' },
+	// 	{ id: 5, icon: 'frog', origem: 'FontAwesome5' }, { id: 6, icon: 'fish', origem: 'FontAwesome5' },
+	// 	{ id: 7, icon: 'horse', origem: 'FontAwesome5' }, { id: 8, icon: 'spider', origem: 'FontAwesome5' },
+	// 	{ id: 9, icon: 'dragon', origem: 'FontAwesome5' }, { id: 10, icon: 'bat', origem: 'MaterialCommunityIcons' },
+	// 	{ id: 11, icon: 'rabbit', origem: 'MaterialCommunityIcons' }, { id: 12, icon: 'pig-variant', origem: 'MaterialCommunityIcons' },
+	// 	{ id: 13, icon: 'bird', origem: 'MaterialCommunityIcons' }, { id: 14, icon: 'dolphin', origem: 'MaterialCommunityIcons' },
+	// 	{ id: 15, icon: 'bee', origem: 'MaterialCommunityIcons' }, { id: 16, icon: 'bee-flower', origem: 'MaterialCommunityIcons' },
+	// 	{ id: 17, icon: 'snake', origem: 'MaterialCommunityIcons' }, { id: 18, icon: 'duck', origem: 'MaterialCommunityIcons' },
 
+	// ];
+
+	const data = [
+		{ id: 1, icon: 'numeric-1', origem: 'MaterialCommunityIcons' }, { id: 2, icon: 'numeric-2', origem: 'MaterialCommunityIcons' },
+		{ id: 3, icon: 'numeric-3', origem: 'MaterialCommunityIcons' }, { id: 4, icon: 'numeric-4', origem: 'MaterialCommunityIcons' },
+		{ id: 5, icon: 'numeric-5', origem: 'MaterialCommunityIcons' }, { id: 6, icon: 'numeric-6', origem: 'MaterialCommunityIcons' },
+		{ id: 7, icon: 'numeric-7', origem: 'MaterialCommunityIcons' }, { id: 8, icon: 'numeric-8', origem: 'MaterialCommunityIcons' },
+		{ id: 9, icon: 'numeric-9', origem: 'MaterialCommunityIcons' }
 	];
 
 	const [randon, setRandon] = useState(Math.floor(Math.random() * 9 - 1) + 1);
@@ -39,9 +47,9 @@ export default function Reflexividade() {
 		loadResultados();
 		if (controle < 10) {
 			setLoading(true)
-			geraItens();
-			setLoading(false);
+			// geraItens();
 			validaResposta();
+			setLoading(false);
 		}
 	}, [press]);
 
@@ -52,31 +60,31 @@ export default function Reflexividade() {
 		setIdResultado(data.length + 1);
 	}
 
-	function geraItens() {
-		setItens([]);
-		let c = 0
-		let itensList = []
-		let comparacao
-		for (var i = 0; i < data.length; i++) {
-			c = Math.floor(Math.random() * data.length - 1) + 1
-			comparacao = itensList.find(element => element == data[c])
-			if (!comparacao && itensList.length < 9) {
-				itensList.push(data[c]);
-			}
-		}
-		setItens(itensList)
-		setRandon(Math.floor(Math.random() * 9 - 1) + 1);
-	}
+	// function geraItens() {
+	// 	setItens([]);
+	// 	let c = 0
+	// 	let itensList = []
+	// 	let comparacao
+	// 	for (var i = 0; i < data.length; i++) {
+	// 		c = Math.floor(Math.random() * data.length - 1) + 1
+	// 		comparacao = itensList.find(element => element == data[c])
+	// 		if (!comparacao && itensList.length < 9) {
+	// 			itensList.push(data[c]);
+	// 		}
+	// 	}
+	// 	setItens(itensList)
+	// 	setRandon(Math.floor(Math.random() * 9 - 1) + 1);
+	// }
 
 	// Validação da resposta selecionada e monta array do obejto do resultado
 	function validaResposta() {
 		let resposta = false;
 		let resultado;
 		setCountSeconds((value) => value = 0);
-		if (press != null && itens[randon].id === press.id) {
-			setRandon(Math.floor(Math.random() * 9 - 1) + 1);
+		if (press != null && data[randon].id === press.id) {
 			resposta = true;
 		}
+		setRandon(Math.floor(Math.random() * 9 - 1) + 1);
 		resultado = { id: result.length, acerto: resposta, tempo: countSeconds }
 
 		if (resultado && resultado.tempo != 0) {
@@ -126,7 +134,7 @@ export default function Reflexividade() {
 	const renderItem = ({ item }) => {
 		return (
 			<TouchableOpacity onPress={() => setPress(item)} style={styles.item}>
-				{item.origem == 'FontAwesome5' ? <IconFont name={item.icon} size={46} color="#fff" /> : <IconMaterial name={item.icon} size={40} color="#fff" />}
+				<IconMaterial name={item.icon} size={72} color="#fff" />
 			</TouchableOpacity>
 		);
 
@@ -135,29 +143,28 @@ export default function Reflexividade() {
 	if (!loading) {
 		return (
 			<LinearGradient keyboardShouldPersistTaps={false} colors={['rgba(25,38,68,1)', 'rgba(54,84,168,1)']} style={styles.container} >
-					<View style={{ alignItems: 'center', marginBottom: 20 }}>
-						<Text style={styles.itemText}>Reflexividade</Text>
-						<TextInput style={{ color: '#FFF', borderBottomWidth: 1, textAlign: 'center' }} placeholder={'Informe seu nome'} placeholderTextColor="#FFF" onChangeText={(value) => setNome(value)} />
-						<Text style={styles.itemText}>{countSeconds < 10 ? "0" + countSeconds : countSeconds}</Text>
-						<View style={{ width: '50%', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
-							<Button title='Start' onPress={startTimer} />
-							<Button title='Stop' onPress={stopTimer} />
-						</View>
+				<View style={{ flexDirection: 'row', width: '100%' }}>
+					<TextInput style={{ color: '#FFF', borderColor: '#FFF', borderWidth: 1, borderRadius: 5, textAlign: 'center', width: '45%' }} placeholder={'Informe seu nome'} placeholderTextColor="#FFF" onChangeText={(value) => setNome(value)} />
+					<Text style={[styles.itemText, { marginTop: 5, marginLeft: 15, width: '10%', fontSize: 24 }]}>{countSeconds < 10 ? "0" + countSeconds : countSeconds}</Text>
+					<View style={{ width: '40%', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+						<Button title='Start' onPress={startTimer} />
+						<Button title='Stop' onPress={stopTimer} />
 					</View>
+				</View>
 
-					<View style={[styles.button]}>
-						{itens[randon].origem == 'FontAwesome5' ? <IconFont name={itens[randon].icon} size={46} color="#fff" /> : <IconMaterial name={itens[randon].icon} size={46} color="#fff" />}
-					</View>
+				<View style={[styles.button]}>
+					<IconMaterial name={data[randon].icon} size={72} color="#fff" />
+				</View>
 
-					<View style={{ margin: 8 }}>
-						<FlatList
-							data={itens}
-							renderItem={renderItem}
-							keyExtractor={(item) => item.id}
-							numColumns={3}
-							refreshing={true}
-						/>
-					</View>
+				<View style={{ margin: 8 }}>
+					<FlatList
+						data={data}
+						renderItem={renderItem}
+						keyExtractor={(item) => item.id}
+						numColumns={3}
+						refreshing={true}
+					/>
+				</View>
 			</LinearGradient>
 		);
 

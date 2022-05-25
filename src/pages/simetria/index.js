@@ -136,29 +136,28 @@ export default function Simetria() {
   if (!loading) {
     return (
       <LinearGradient keyboardShouldPersistTaps={false} colors={['rgba(25,38,68,1)', 'rgba(54,84,168,1)']} style={styles.container} >
-          <View style={{ alignItems: 'center', marginBottom: 20 }}>
-            <Text style={styles.itemText}>Simetria</Text>
-            <TextInput style={{ color: '#FFF', borderBottomWidth: 1, textAlign: 'center' }} placeholder={'Informe seu nome'} placeholderTextColor="#FFF" onChangeText={(value) => setNome(value)} />
-            <Text style={styles.itemText}>{countSeconds < 10 ? "0" + countSeconds : countSeconds}</Text>
-            <View style={{ width: '50%', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
-              <Button title='Start' onPress={startTimer} />
-              <Button title='Stop' onPress={stopTimer} />
-            </View>
+        <View style={{ flexDirection: 'row', width: '100%' }}>
+          <TextInput style={{ color: '#FFF', borderColor: '#FFF', borderWidth: 1, borderRadius: 5, textAlign: 'center', width: '45%' }} placeholder={'Informe seu nome'} placeholderTextColor="#FFF" onChangeText={(value) => setNome(value)} />
+          <Text style={[styles.itemText, { marginTop: 5, marginLeft: 15, width: '10%', fontSize: 24 }]}>{countSeconds < 10 ? "0" + countSeconds : countSeconds}</Text>
+          <View style={{ width: '40%', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+            <Button title='Start' onPress={startTimer} />
+            <Button title='Stop' onPress={stopTimer} />
           </View>
+        </View>
 
-          <View style={[styles.button, { width: 250, marginHorizontal: '17%' }]}>
-            <Text style={{ fontSize: 24, textAlign: 'center', color: '#FFF', fontWeight: 'bold' }}>{itens[randon].nome}</Text>
-          </View>
+        <View style={[styles.button]}>
+          <Text style={{ fontSize: 24, textAlign: 'center', color: '#FFF', fontWeight: 'bold' }}>{itens[randon].nome}</Text>
+        </View>
 
-          <View style={{ margin: 8 }}>
-            <FlatList
-              data={itens}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id}
-              numColumns={3}
-              refreshing={true}
-            />
-          </View>
+        <View style={{ margin: 8 }}>
+          <FlatList
+            data={itens}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            numColumns={3}
+            refreshing={true}
+          />
+        </View>
       </LinearGradient>
     );
 

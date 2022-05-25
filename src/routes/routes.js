@@ -13,24 +13,24 @@ const Drawer = createDrawerNavigator();
 
 function ReflexividadeStack() {
 	return (
-		<Stack.Navigator initialRouteName="Reflexividade">
-			<Stack.Screen name="Reflexividade" component={Reflexividade} options={{ headerShown: false }} />
+		<Stack.Navigator initialRouteName="Reflexividade" screenOptions={{ headerStyle: { backgroundColor: 'rgba(25,38,68,1)' }, headerTintColor: '#fff', headerTitleAlign: 'center' }}>
+			<Stack.Screen name="Reflexividade" component={Reflexividade}/>
 		</Stack.Navigator>
 	);
 }
 
 function SimetriaStack() {
 	return (
-		<Stack.Navigator initialRouteName="Simetria">
-			<Stack.Screen name="Simetria" component={Simetria} options={{ headerShown: false }} />
+		<Stack.Navigator initialRouteName="Simetria" screenOptions={{ headerStyle: { backgroundColor: 'rgba(25,38,68,1)' }, headerTintColor: '#fff', headerTitleAlign: 'center' }}>
+			<Stack.Screen name="Simetria" component={Simetria} />
 		</Stack.Navigator>
 	);
 }
 
 function TransitividadeStack() {
 	return (
-		<Stack.Navigator initialRouteName="Transitividade">
-			<Stack.Screen name="Transitividade" component={Transitividade} options={{ headerShown: false }} />
+		<Stack.Navigator initialRouteName="Transitividade" screenOptions={{ headerStyle: { backgroundColor: 'rgba(25,38,68,1)' }, headerTintColor: '#fff', headerTitleAlign: 'center' }}>
+			<Stack.Screen name="Transitividade" component={Transitividade} />
 		</Stack.Navigator>
 	);
 }
